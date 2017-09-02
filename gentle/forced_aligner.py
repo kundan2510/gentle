@@ -24,8 +24,12 @@ class ForcedAligner():
 
         # Clear queue (would this be gc'ed?)
         for i in range(self.nthreads):
-            k = self.queue.get()
-            k.stop()
+            try:
+                k = self.queue.get()
+                k.stop()
+            except Exception as e:
+                pass
+            sleep(0.01)
 
         # Align words
         words = diff_align.align(words, self.ms, **self.kwargs)
