@@ -5,6 +5,8 @@ from gentle import metasentence
 from gentle import multipass
 from gentle.transcriber import MultiThreadedTranscriber
 from gentle.transcription import Transcription
+from time import sleep
+
 
 class ForcedAligner():
 
@@ -27,9 +29,9 @@ class ForcedAligner():
             try:
                 k = self.queue.get()
                 k.stop()
+                sleep(0.01)
             except Exception as e:
                 pass
-            sleep(0.01)
 
         # Align words
         words = diff_align.align(words, self.ms, **self.kwargs)
